@@ -13,7 +13,23 @@ const getters = {
     ),
 };
 
-const mutations = {};
+const mutations = {
+  editEvent(dayId, eventTitle) {
+    state.calendarWeekData.map((dayObj) => {
+      dayObj.events.map((event) => (event.edit = false));
+    });
+    const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
+    const eventObj = dayObj.events.find((event) => event.title === eventTitle);
+    eventObj.edit = true;
+  },
+  deleteEvent(dayId, eventTitle) {
+    const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
+    const eventIndex = dayObj.events.findIndex(
+      (event) => event.title === eventTitle
+    );
+    dayObj.events.splice(eventIndex, 1);
+  },
+};
 
 export default {
   state: readonly(state),
