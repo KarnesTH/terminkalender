@@ -38,7 +38,7 @@
       CalendarWeek,
       CalendarEntry,
       CalendarSettings
-    }
+    },
   };
 </script>
 
