@@ -9,12 +9,12 @@
       <strong>{{ day.fullName }}</strong>
     </div>
     <div class="card-body">
-      <transition name="fade" mode="out-in">
+      <Transition name="fade" mode="out-in">
         <!-- Anfang: Template für die Calendar-Event-Component -->
         <div v-if="day.events.length">
-          <transition-group name="list">
+          <TransitionGroup name="list">
             <CalendarEvent
-              v-for="event in day.events"
+              v-for="event in events"
               :key="event.title"
               :event="event"
               :day="day"
@@ -26,7 +26,7 @@
                 ><i>{{ entry.title }}</i></template
               >
             </CalendarEvent>
-          </transition-group>
+          </TransitionGroup>
         </div>
         <div v-else>
           <div class="alert alert-light text-center">
@@ -34,7 +34,7 @@
           </div>
         </div>
         <!-- Ende: Template für die Calendar-Event-Component -->
-      </transition>
+      </Transition>
     </div>
   </div>
 </template>
@@ -76,6 +76,9 @@ export default {
         ? ["bg-primary", "text-white"]
         : null;
     },
+    events() {
+      return Store.getters.events(this.day.id);
+    },
   },
   methods: {
     setActiveDay() {
@@ -85,21 +88,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateY(30px);
-}
-
-.list-enter-to,
-.list-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 1s ease;
+  transform: scaleY(0.01) translate(30px, 0);
 }
 </style>

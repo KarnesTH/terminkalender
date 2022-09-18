@@ -4,10 +4,22 @@ import { reactive, readonly } from "vue";
 const state = reactive({
   calendarWeekData,
   activeView: "CalendarWeek",
+  activeOrdering: "title",
 });
 
 const getters = {
   activeDay: () => state.calendarWeekData.find((day) => day.active),
+  events: (dayId) => {
+    const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
+    return dayObj.events.sort((a, b) => {
+      if (a[state.activeOrdering] > b[state.activeOrdering]) {
+        return 1;
+      } else if (a[state.activeOrdering] < b[state.activeOrdering]) {
+        return -1;
+      }
+      return 0;
+    });
+  },
 };
 
 const mutations = {
@@ -52,6 +64,9 @@ const mutations = {
   },
   setActiveView(view) {
     state.activeView = view;
+  },
+  setActiveOrdering(ordering) {
+    state.activeOrdering = ordering;
   },
 };
 

@@ -1,7 +1,7 @@
 <template>
   <div id="calendar-event">
     <div class="alert text-center" :class="alertColor">
-      <transition name="fade" mode="out-in">
+      <Transition name="fade" mode="out-in">
         <div v-if="!event.edit">
           <div>
             <slot
@@ -39,7 +39,7 @@
           <hr />
           <i class="fas fa-check" role="button" @click="updateEvent()"></i>
         </div>
-      </transition>
+      </Transition>
     </div>
   </div>
 </template>
