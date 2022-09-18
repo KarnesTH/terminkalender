@@ -1,16 +1,12 @@
 import { calendarWeekData } from "./seed";
 import { reactive, readonly } from "vue";
-import moment from "moment";
 
 const state = reactive({
   calendarWeekData,
 });
 
 const getters = {
-  activeDay: () =>
-    state.calendarWeekData.find(
-      (day) => day.fullName === moment().locale("de").format("dddd")
-    ),
+  activeDay: () => state.calendarWeekData.find((day) => day.active),
 };
 
 const mutations = {
@@ -38,6 +34,20 @@ const mutations = {
       (event) => event.title === eventTitle
     );
     dayObj.events.splice(eventIndex, 1);
+  },
+  setActiveDay(dayId) {
+    state.calendarWeekData.map((dayObj) =>
+      dayObj.id === dayId ? (dayObj.active = true) : (dayObj.active = false)
+    );
+  },
+  storeEvent(event) {
+    const activeDay = getters.activeDay();
+    activeDay.events.push({
+      title: event.title,
+      edit: false,
+      color: event.color,
+      priority: Number(event.priority),
+    });
   },
 };
 
