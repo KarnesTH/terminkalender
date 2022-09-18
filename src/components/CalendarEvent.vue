@@ -16,7 +16,9 @@
         </div>
       </template>
       <template v-else>
-        <p>Test</p>
+        <input type="text" class="form-control" :placeholder="event.title" />
+        <hr>
+        <i class="fas fa-check"></i>
       </template>
     </div>
   </div>
@@ -49,10 +51,10 @@
     },
     methods: {
       deleteEvent() {
-        Store.mutations.deleteEvent(this.day.id, this.day.title);
+        Store.mutations.deleteEvent(this.day.id, this.event.title);
       },
       editEvent() {
-        Store.mutations.editEvent(this.day.id, this.day.title);
+        Store.mutations.editEvent(this.day.id, this.event.title);
       },
     },
   };

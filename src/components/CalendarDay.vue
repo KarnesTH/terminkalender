@@ -7,7 +7,7 @@
       <!-- Anfang: Template für die Calendar-Event-Component -->
       <CalendarEvent v-for="event in day.events" :key="event.title" :event="event" :day="day">
         <template #eventPriority="slotProps"><h5>{{ slotProps.priorityDisplayName }}</h5></template>
-        <template #default="{ event }"><i>{{ event.title }}</i></template>
+        <template #default="{ event: entry }"><i>{{ entry.title }}</i></template>
       </CalendarEvent>
       <!-- Ende: Template für die Calendar-Event-Component -->
     </div>

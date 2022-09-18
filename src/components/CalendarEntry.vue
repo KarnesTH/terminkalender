@@ -13,7 +13,7 @@
         <select class="form-select mt-2">
           <option value="-1">Hoch</option>
           <option value="0">Mittel</option>
-          <option value="1">Tief</option>
+          <option value="1">Niedrig</option>
         </select>
         <div class="text-center mt-3">
           <span
