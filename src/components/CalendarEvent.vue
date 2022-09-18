@@ -1,36 +1,45 @@
 <template>
   <div id="calendar-event">
     <div class="alert text-center" :class="alertColor">
-      <template v-if="!event.edit">
-        <div>
-          <slot name="eventPriority" :priorityDisplayName="priorityDisplayName">
-            <strong>{{ priorityDisplayName }}</strong>
+      <transition name="fade" mode="out-in">
+        <div v-if="!event.edit">
+          <div>
+            <slot
+              name="eventPriority"
+              :priorityDisplayName="priorityDisplayName"
+            >
+              <strong>{{ priorityDisplayName }}</strong>
+            </slot>
+          </div>
+          <slot :event="event">
+            <div>{{ event.title }}</div>
           </slot>
+          <div>
+            <i class="fas fa-edit me-2" role="button" @click="editEvent()"></i>
+            <i
+              class="far fa-trash-alt"
+              role="button"
+              @click="deleteEvent()"
+            ></i>
+          </div>
         </div>
-        <slot :event="event">
-          <div>{{ event.title }}</div>
-        </slot>
-        <div>
-          <i class="fas fa-edit me-2" role="button" @click="editEvent()"></i>
-          <i class="far fa-trash-alt" role="button" @click="deleteEvent()"></i>
+        <div v-else>
+          <input
+            type="text"
+            class="form-control"
+            :placeholder="event.title"
+            ref="newEventTitleInput"
+            @input="setNewEventTitle($event)"
+          />
+          <select class="form-select mt-2" v-model="newEventPriority">
+            <option value="-1">Hoch</option>
+            <option value="0">Mittel</option>
+            <option value="1">Niedrig</option>
+          </select>
+          <hr />
+          <i class="fas fa-check" role="button" @click="updateEvent()"></i>
         </div>
-      </template>
-      <template v-else>
-        <input
-          type="text"
-          class="form-control"
-          :placeholder="event.title"
-          ref="newEventTitleInput"
-          @input="setNewEventTitle($event)"
-        />
-        <select class="form-select mt-2" v-model="newEventPriority">
-          <option value="-1">Hoch</option>
-          <option value="0">Mittel</option>
-          <option value="1">Niedrig</option>
-        </select>
-        <hr />
-        <i class="fas fa-check" role="button" @click="updateEvent()"></i>
-      </template>
+      </transition>
     </div>
   </div>
 </template>

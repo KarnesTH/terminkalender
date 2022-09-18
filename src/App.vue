@@ -4,7 +4,9 @@
       <div class="col-12">
         <!-- Anfang: Template für die Calendar-Week-Component -->
         <keep-alive>
-          <component :is="activeView" />
+          <transition name="fade" mode="out-in" appear>
+            <component :is="activeView" />
+          </transition>
         </keep-alive>
         <!-- Ende: Template für die Calendar-Week-Component -->
       </div>
@@ -23,7 +25,9 @@
           </button>
         </div>
         <!-- Anfang: Template für die Calendar-Settings-Component -->
-        <CalendarSettings v-if="displaySettings" />
+        <transition name="fade">
+          <CalendarSettings v-if="displaySettings" />
+        </transition>
         <!-- Ende: Template für die Calendar-Day-Component -->
       </div>
     </div>
@@ -69,5 +73,20 @@ export default {
 .square {
   width: 40px;
   height: 40px;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.25s ease-out;
 }
 </style>
