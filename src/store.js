@@ -22,6 +22,16 @@ const mutations = {
     const eventObj = dayObj.events.find((event) => event.title === eventTitle);
     eventObj.edit = true;
   },
+  updateEvent(dayId, oldEventTitle, newEvent) {
+    newEvent.title = newEvent.title !== "" ? newEvent.title : oldEventTitle;
+    const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
+    const eventObj = dayObj.events.find(
+      (event) => event.title === oldEventTitle
+    );
+    eventObj.title = newEvent.title;
+    eventObj.priority = Number(newEvent.priority);
+    eventObj.edit = false;
+  },
   deleteEvent(dayId, eventTitle) {
     const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
     const eventIndex = dayObj.events.findIndex(
