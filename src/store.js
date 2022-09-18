@@ -3,6 +3,7 @@ import { reactive, readonly } from "vue";
 
 const state = reactive({
   calendarWeekData,
+  activeView: "CalendarWeek",
 });
 
 const getters = {
@@ -48,6 +49,9 @@ const mutations = {
       color: event.color,
       priority: Number(event.priority),
     });
+  },
+  setActiveView(view) {
+    state.activeView = view;
   },
 };
 

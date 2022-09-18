@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-12">
         <!-- Anfang: Template für die Calendar-Week-Component -->
-        <CalendarWeek />
+        <keep-alive>
+          <component :is="activeView" />
+        </keep-alive>
         <!-- Ende: Template für die Calendar-Week-Component -->
       </div>
     </div>
@@ -30,12 +32,15 @@
 
 <script>
 import CalendarWeek from "./components/CalendarWeek.vue";
+import CalendarWeekAsList from "./components/CalendarWeekAsList.vue";
 import CalendarEntry from "./components/CalendarEntry.vue";
 import CalendarSettings from "./components/CalendarSettings.vue";
+import Store from "./store";
 export default {
   name: "App",
   components: {
     CalendarWeek,
+    CalendarWeekAsList,
     CalendarEntry,
     CalendarSettings,
   },
@@ -43,6 +48,11 @@ export default {
     return {
       displaySettings: false,
     };
+  },
+  computed: {
+    activeView() {
+      return Store.state.activeView;
+    },
   },
   methods: {
     toggleDisplaySettings() {
