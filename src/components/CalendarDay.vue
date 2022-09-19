@@ -9,10 +9,10 @@
       <strong>{{ day.fullName }}</strong>
     </div>
     <div class="card-body">
-      <Transition name="fade" mode="out-in">
+      <transition name="fade" mode="out-in">
         <!-- Anfang: Template für die Calendar-Event-Component -->
         <div v-if="day.events.length">
-          <TransitionGroup name="list">
+          <transition-group name="list">
             <CalendarEvent
               v-for="event in events"
               :key="event.title"
@@ -26,7 +26,7 @@
                 ><i>{{ entry.title }}</i></template
               >
             </CalendarEvent>
-          </TransitionGroup>
+          </transition-group>
         </div>
         <div v-else>
           <div class="alert alert-light text-center">
@@ -34,7 +34,7 @@
           </div>
         </div>
         <!-- Ende: Template für die Calendar-Event-Component -->
-      </Transition>
+      </transition>
     </div>
   </div>
 </template>
@@ -88,16 +88,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .list-move,
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: all 0.5s ease;
 }
 
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: scaleY(0.01) translate(30px, 0);
+  transform: translateY(30px);
 }
 </style>
